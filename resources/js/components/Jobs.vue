@@ -26,7 +26,7 @@
         <div class="card card-body mb-2" v-for="job in jobs" v-bind:key="job.id">
             <h3>{{ job.name }}</h3>
             <p>{{ job.description }}</p>
-            <p>Posted by: {{job.company.name}} in: {{ job.category.name }}</p>
+            <p>Posted by: {{job.company.name}} in: <span v-if="job.category">{{ job.category.name }}</span><span v-else>N/A</span></p>
             <p class="pull-right">
                 <button type="submit" class="btn btn-primary pull-right" @click="applyToJob(job)">Apply</button>
             </p>
@@ -51,7 +51,7 @@
                                 <input type="text" class="form-control" id="recipient-name">
                             </div>
                             <div class="form-group">
-                                <label for="message-text" class="col-form-label">Message:</label>
+                                <label for="message-text" class="col-form-label">Cover letter:</label>
                                 <textarea class="form-control" id="message-text"></textarea>
                             </div>
                         </form>
@@ -80,8 +80,9 @@
                         name: '',
                         company_id: '',
                         description: '',
-                        category: ''
+                        category: null
                     },
+                    user: {},
                     job_id: '',
                     pagination: {},
                     edit: false
@@ -204,11 +205,22 @@
 
                 },
                 applyToJob(job) {
-                    console.info(job);
-                    let vm = this;
+                    let vm = this; // we may just need it ... :)
                     // display modal with all fields like CV, cover letter, additional fields ...
                     // get cv, add cover letter field
                     $('#myModal').modal('show');
+                    fetch('api/getcv', {
+                        method: 'get',
+                        body: JSON.stringify(this.user),
+                        headers: {
+                            'content-type': 'application/json'
+                        }
+                    })
+                        .then(res => res.json)
+                        .then(data => {
+                            this.user.cv = res.cv
+                        })
+                        .catch(err => notyf.alert(err));
                 }
             }
         }

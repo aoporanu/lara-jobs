@@ -15,6 +15,10 @@ class CreateInboxesTable extends Migration
     {
         Schema::create('inboxes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('from');
+            $table->integer('to');
+            $table->text('body');
+            $table->boolean('is_read');
             $table->timestamps();
         });
     }

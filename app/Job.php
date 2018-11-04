@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static paginate(int $int)
  * @method static find($id)
  * @method static findOrFail($get)
- * @method delete()
+ * @method static where()
  * @property mixed description
  * @property mixed title
  * @property mixed id

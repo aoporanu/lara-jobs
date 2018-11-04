@@ -6,6 +6,7 @@ use App\Job;
 use App\Http\Resources\JobResource;
 use Illuminate\Http\Request;
 use App\Events\JobCreated;
+use Illuminate\Support\Facades\Auth;
 
 class JobsController extends Controller
 {
@@ -17,7 +18,9 @@ class JobsController extends Controller
     public function index()
     {
         $jobs = Job::paginate(15);
-
+        if(Auth::user() && Auth::user()->companies() != null) {
+            $jobs = $jobs->where('company_id', Auth::user()->companies('id'));
+        }
         return JobResource::collection($jobs);
     }
 

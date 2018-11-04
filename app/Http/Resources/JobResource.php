@@ -4,6 +4,15 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed id
+ * @property mixed title
+ * @property mixed description
+ * @property mixed company
+ * @property mixed category
+ * @property mixed created_at
+ * @property mixed updated_at
+ */
 class JobResource extends JsonResource
 {
     /**

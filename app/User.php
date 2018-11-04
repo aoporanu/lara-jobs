@@ -7,6 +7,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
+/**
+ * Class User
+ * @property mixed name
+ * @property mixed email
+ * @property mixed password
+ * @package App
+ * @method static create(array $input)
+ */
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
