@@ -28,7 +28,7 @@ class UsersController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param RegisterFormRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function register(RegisterFormRequest $request)

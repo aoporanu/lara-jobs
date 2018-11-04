@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobCreateRequest;
 use App\Job;
 use App\Http\Resources\JobResource;
-use Illuminate\Http\Request;
 use App\Events\JobCreated;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,10 +27,10 @@ class JobsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param JobCreateRequest $request
      * @return JobResource
      */
-    public function store(Request $request)
+    public function store(JobCreateRequest $request)
     {
         $job = $request->isMethod('put') ? Job::findOrFail($request->get('job_id')) : new Job;
 
