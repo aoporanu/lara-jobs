@@ -21,14 +21,16 @@ class JobsController extends Controller
     {
         $jobs = Job::paginate(15);
         $user = Auth::user()->load(['companies', 'companies.jobs']);
-//        //        var_dump($user);
-//        //        die;
-//        $user = (new \App\User)->with('companies')->where('id', $user->id)->get();
-        var_dump($user);
-        die();
-//        if(Auth::user() && $user->companies != null) {
-//            $jobs = $user->companies->jobs;
-//        }
+//        I can get the companies, but not the jobs for company, if I could
+//        get the jobs for a company than I could build something like
+//        array [
+//            'user',
+//            'companies',
+//            'jobs'
+//        ]
+        if(Auth::user() && $user->companies != null) {
+            $jobs = $user->companies;
+        }
         return JobResource::collection($jobs);
     }
 

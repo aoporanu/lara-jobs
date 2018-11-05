@@ -107,10 +107,10 @@
                         .then(res => res.json())
                         .then(res => {
                             this.jobs = res.data.jobs;
-                            // if(res.hasOwnProperty(meta) && res.hasOwnProperty(links)) {
+                            if(res.hasOwnProperty(meta) && res.hasOwnProperty(links)) {
                                 // display pagination links
-                                vm.magePagination(res.meta, res.links);
-                            // }
+                            vm.magePagination(res.meta, res.links);
+                            }
                         })
                         .catch(err => notyf.alert(err));
                     fetch('/api/categories')
@@ -118,7 +118,8 @@
                         .then(res => {
                             this.categories = res.data;
                         })
-                        .catch(err => notyf.alert(err));
+                        // .catch(err => notyf.alert(err));
+                        .catch(err => console.info(err));
                 },
                 magePagination(meta, links) {
                     this.pagination = {

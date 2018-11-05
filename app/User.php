@@ -18,10 +18,7 @@ use Laravel\Passport\HasApiTokens;
  * @method static where(string $string, $id)
  * @method with(string $string)
  * @property int $id
- * @property string $name
- * @property string $email
  * @property string|null $email_verified_at
- * @property string $password
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at

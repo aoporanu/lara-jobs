@@ -13,12 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property mixed name
  * @package App
  * @property int $id
- * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $cover
- * @property string|null $slogan
- * @property string $description
  * @property int|null $user_id
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Inbox[] $inbox
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Job[] $jobs
