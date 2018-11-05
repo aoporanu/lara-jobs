@@ -25,11 +25,6 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue').default
 );
 
-Vue.component(
-    'UserDetails',
-    require('./components/UserDetails').default
-);
-
 const app = new Vue({
     el: '#app',
 });

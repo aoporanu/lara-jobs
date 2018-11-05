@@ -1,18 +1,27 @@
 <template>
     <div class="panel">
     	 <div class="panel panel-header">User Details</div>
-	 <div class="panel panel-body">
+		 <div class="panel panel-body">
 
-	 </div>
+		 </div>
+	</div>
 </template>
 
 <script>
-    Let notyf = Notyf();
+    let notyf = Notyf();
 
     import Vue from "vue";
     
     export default {
-        data
+        created() {
+            this.fetchUser();
+		},
+
+		methods: {
+            fetchUser: function(currentUser) {
+				let vm = this;
+			}
+		}
     }
 </script>
 

@@ -19,7 +19,8 @@ class CompanyResource extends JsonResource
             'cover'         => $this->cover,
             'slogan'        => $this->slogan,
             'description'   => $this->description,
-            'jobs'          => JobResource::collection($this->jobs)
+            'jobs'          => JobResource::collection($this->jobs),
+            'user'          => $this->user
         ];
     }
 }

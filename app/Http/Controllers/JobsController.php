@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\JobDeletedEvent;
 use App\Http\Requests\JobCreateRequest;
 use App\Job;
 use App\Http\Resources\JobResource;
@@ -11,16 +12,23 @@ use Illuminate\Support\Facades\Auth;
 class JobsController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resource. This function will show all jobs,
+     * so we should probably leave it for the frontend page ONLY.
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
         $jobs = Job::paginate(15);
-        if(Auth::user() && Auth::user()->companies() != null) {
-            $jobs = $jobs->where('company_id', Auth::user()->companies('id'));
-        }
+        $user = Auth::user()->load(['companies', 'companies.jobs']);
+//        //        var_dump($user);
+//        //        die;
+//        $user = (new \App\User)->with('companies')->where('id', $user->id)->get();
+        var_dump($user);
+        die();
+//        if(Auth::user() && $user->companies != null) {
+//            $jobs = $user->companies->jobs;
+//        }
         return JobResource::collection($jobs);
     }
 
@@ -68,6 +76,6 @@ class JobsController extends Controller
     {
         $job = Job::find($id);
         $job->delete();
-        event(new JobDeleted($job));
+        event(new JobDeletedEvent($job));
     }
 }
