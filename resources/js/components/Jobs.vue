@@ -87,7 +87,11 @@
                     pagination: {},
                     edit: false
                 }
-            },
+        },
+
+		props: {
+			userId: Number
+		},
 
             created() {
                 this.fetchJobs();
@@ -106,20 +110,17 @@
                     })
                         .then(res => res.json())
                         .then(res => {
-                            this.jobs = res.data.jobs;
-                            if(res.hasOwnProperty(meta) && res.hasOwnProperty(links)) {
-                                // display pagination links
-                            vm.magePagination(res.meta, res.links);
-                            }
+                            this.jobs = res.data;
+							vm.magePagination(res.meta, res.links);
                         })
                         .catch(err => notyf.alert(err));
-                    fetch('/api/categories')
+                    fetch('/api/categories', { headers: myHeaders })
                         .then(res => res.json())
                         .then(res => {
-                            this.categories = res.data;
+							this.categories = res.data;
                         })
-                        // .catch(err => notyf.alert(err));
-                        .catch(err => console.info(err));
+                        .catch(err => notyf.alert(err));
+//                        .catch(err => console.info(err));
                 },
                 magePagination(meta, links) {
                     this.pagination = {
@@ -133,6 +134,7 @@
                     if(confirm('Are you sure?')) {
                         // so not right...
                         fetch(`api/job/` + id, {
+							headers: myHeaders,
                             method: 'delete'
                         })
                         .then(res => res.json)
@@ -152,6 +154,7 @@
                         // add
                         fetch('api/job', {
                             method: 'post',
+							headers: myHeaders,
                             body: JSON.stringify(this.job),
                             headers: {
                                 'content-type': 'application/json'
@@ -184,6 +187,7 @@
                         // update
                         fetch('api/job', {
                             method: 'put',
+							headers: myHeaders,
                             body: JSON.stringify(this.job),
                             headers: {
                                 'content-type': 'application/json'
@@ -222,9 +226,7 @@
                     fetch('api/getcv', {
                         method: 'get',
                         body: JSON.stringify(this.user),
-                        headers: {
-                            'content-type': 'application/json'
-                        }
+                        headers: myHeaders
                     })
                         .then(res => res.json)
                         .then(data => {

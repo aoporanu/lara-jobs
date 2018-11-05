@@ -20,17 +20,6 @@ class JobsController extends Controller
     public function index()
     {
         $jobs = Job::paginate(15);
-        $user = Auth::user()->load(['companies', 'companies.jobs']);
-//        I can get the companies, but not the jobs for company, if I could
-//        get the jobs for a company than I could build something like
-//        array [
-//            'user',
-//            'companies',
-//            'jobs'
-//        ]
-        if(Auth::user() && $user->companies != null) {
-            $jobs = $user->companies;
-        }
         return JobResource::collection($jobs);
     }
 
