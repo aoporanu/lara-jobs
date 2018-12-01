@@ -1,26 +1,37 @@
-<?php
+<?php /** @noinspection PhpParamsInspection */
+
+/** @noinspection PhpUndefinedClassInspection */
 
 namespace App\Http\Controllers;
 
+use App\Events\JobCreated;
 use App\Events\JobDeletedEvent;
 use App\Http\Requests\JobCreateRequest;
 use App\Job;
 use App\Http\Resources\JobResource;
-use App\Events\JobCreated;
-use Illuminate\Support\Facades\Auth;
 
 class JobsController extends Controller
 {
     /**
      * Display a listing of the resource. This function will show all jobs,
      * so we should probably leave it for the frontend page ONLY.
+     * YAY!!! \(-_-)/
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return array
      */
     public function index()
     {
         $jobs = Job::paginate(15);
-        return JobResource::collection($jobs);
+        $collection = JobResource::collection($jobs);
+//        This is how filtering by company or category should work, so I should
+//        probably employ this in filtering for the user details or some other
+//        useful view
+        $filteredCollection = $collection->filter(function($item) {
+            if($item->company->id == 21) {
+                return $item;
+            }
+        })->values(); // Man-up and do it, I can't f***ing hold your hand forever!
+        return $filteredCollection;
     }
 
     /**
