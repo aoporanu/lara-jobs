@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 use App\User;
 
 class AuthController extends Controller
@@ -12,7 +14,8 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if($user) {
-            if($request->password == $user->password) {
+            // if(Hash::make($request->password) == $user->password) {
+            if(Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
                 $response = ['token' => $token];
                 return response($response, 200);
