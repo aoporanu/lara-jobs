@@ -12,6 +12,11 @@ use App\Http\Resources\JobResource;
 
 class JobsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('client');
+    }
     /**
      * Display a listing of the resource. This function will show all jobs,
      * so we should probably leave it for the frontend page ONLY.
