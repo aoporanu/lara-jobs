@@ -25506,7 +25506,6 @@ var notyf = new Notyf();
 
 
     methods: {
-        getUser: function getUser(userId) {},
         fetchJobs: function fetchJobs(pageUrl) {
             var _this = this;
 
@@ -25518,7 +25517,9 @@ var notyf = new Notyf();
                 return res.json();
             }).then(function (res) {
                 _this.jobs = res.data;
-                vm.magePagination(res.meta, res.links);
+                if (typeof res.meta !== 'undefined') {
+                    vm.magePagination(res.meta, res.links);
+                }
             }).catch(function (err) {
                 return notyf.alert(err);
             });
@@ -25529,7 +25530,6 @@ var notyf = new Notyf();
             }).catch(function (err) {
                 return notyf.alert(err);
             });
-            //                        .catch(err => console.info(err));
         },
         magePagination: function magePagination(meta, links) {
             this.pagination = {
@@ -25641,7 +25641,7 @@ var notyf = new Notyf();
             fetch('api/getcv', {
                 method: 'get',
                 body: JSON.stringify(this.user),
-                headers: myHeaders
+                headers: this.myHeaders
             }).then(function (res) {
                 return res.json;
             }).then(function (data) {

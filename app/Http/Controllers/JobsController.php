@@ -27,16 +27,21 @@ class JobsController extends Controller
     public function index()
     {
         $jobs = Job::paginate(15);
-        $collection = JobResource::collection($jobs);
-//        This is how filtering by company or category should work, so I should
-//        probably employ this in filtering for the user details or some other
-//        useful view
-        $filteredCollection = $collection->filter(function($item) {
+        $filteredCollection = $jobs->filter(function($item) {
             if($item->company->id == 21) {
                 return $item;
             }
-        })->values(); // Man-up and do it, I can't f***ing hold your hand forever!
-        return $filteredCollection;
+        })->values();
+        $collection = JobResource::collection($filteredCollection);
+//        This is how filtering by company or category should work, so I should
+//        probably employ this in filtering for the user details or some other
+//        useful view
+        // $filteredCollection = $collection->filter(function($item) {
+        //     if($item->company->id == 21) {
+        //         return $item;
+        //     }
+        // })->values(); // Man-up and do it, I can't f***ing hold your hand forever!
+        return $collection;
     }
 
     /**

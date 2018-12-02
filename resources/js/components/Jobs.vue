@@ -102,9 +102,6 @@
             },
 
         methods: {
-			getUser: function (userId) {
-				
-			},
                 fetchJobs: function (pageUrl) {
                     let vm = this;
                     pageUrl = pageUrl || '/api/jobs';
@@ -114,7 +111,9 @@
                         .then(res => res.json())
                         .then(res => {
                             this.jobs = res.data;
-							vm.magePagination(res.meta, res.links);
+                            if(typeof res.meta !== 'undefined') {
+    							vm.magePagination(res.meta, res.links);
+                            }
                         })
                         .catch(err => notyf.alert(err));
                     fetch('/api/categories', { headers: this.myHeaders })
@@ -123,7 +122,6 @@
 							this.categories = res.data;
                         })
                         .catch(err => notyf.alert(err));
-//                        .catch(err => console.info(err));
                 },
                 magePagination(meta, links) {
                     this.pagination = {
@@ -229,7 +227,7 @@
                     fetch('api/getcv', {
                         method: 'get',
                         body: JSON.stringify(this.user),
-                        headers: myHeaders
+                        headers: this.myHeaders
                     })
                         .then(res => res.json)
                         .then(data => {
