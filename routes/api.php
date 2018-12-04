@@ -1,26 +1,15 @@
 <?php
 
-// Route::get('jobs', 'JobsController@index');
-
-// Route::get('job/{id}', 'JobsController@show');
-
-// Route::post('job/', 'JobsController@store');
-
-// Route::put('job/', 'JobsController@store');
-
-// Route::delete('job/{id}', 'JobsController@destroy');
-
-// Route::get('companies', 'CompanyController@index');
-
-// Route::get('company/{id}', 'CompanyController@show');
-
-// Route::get('categories', 'CategoriesController@index');
+use Illuminate\Http\Request;
 
 Route::post('login', 'AuthController@login')->name('api.user.login');
 
 Route::post('register', 'API\UsersController@register');
 
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::get('/user', function(Request $request) {
+        return $request->user();
+    });
     Route::get('/logout', 'AuthController@logout')->name('api.user.logout');
     Route::get('jobs', 'JobsController@index')->name('api.jobs.index');
     Route::get('job/{id}', 'JobsController@show')->name('api.jobs.show');
