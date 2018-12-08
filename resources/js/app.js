@@ -28,6 +28,10 @@ Vue.component(
     'userdetails',
     require('./components/UserDetails.vue').default
 );
+Vue.component(
+    'login',
+    require('./components/Login').default
+);
 
 const app = new Vue({
     el: '#app',
