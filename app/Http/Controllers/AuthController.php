@@ -9,20 +9,17 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $http = new \GuzzleHttp\Client;
-        // so no posting with login credentials to the login method, or
-        // here be dragons and we'll just get a timeout :)
+        // apparently for guzzlehttp to work we must point at localhost?
         try {
             $response = $http->request('POST', config('services.passport.login_endpoint'), [
                 'form_params' => [
                     'grant_type'    => 'password',
                     'client_id'     => config('services.passport.client_id'),
                     'client_secret' => config('services.passport.client_secret'),
-                    'scope'         => '',
                     'username'      => $request->username,
                     'password'      => $request->password
                 ]
             ]);
-
             return $response->getBody();
         } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             if($e->getCode() == 400) {
