@@ -3,51 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-
-use App\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $http = new \GuzzleHttp\Client;
+        die('xxx');
+        $http = new Client;
+        // so no posting with login credentials to the login method, or
+        // here be dragons and we'll just get a timeout :)
         try {
-            $response = $http->post(config('services.passport.login_endpoint'), [
+            $response = $http->post('http://127.0.0.1:8000/oauth/token', [
                 'form_params' => [
                     'grant_type'    => 'password',
-                    'client_id'     => config('services.passport.client_id'),
-                    'client_secret' => config('services.passport.client_secret'),
+                    'client_id'     => 2,
+                    'client_secret' => 'ZfGuC6SiauJvP8cshdsXRxUfykoS6ODZtx2aW14Z',
                     'username'      => $request->username,
                     'password'      => $request->password
                 ]
             ]);
+            var_dump($response);
+            die;
 
             return $response->getBody();
-        } catch (\GuzzleHttp\Exception\BadResponseException $e) {
+        } catch (BadResponseException $e) {
             if($e->getCode() == 400) {
                 return response()->json('Invalid Request. Please enter a username or a password ', $e->getCode());
             }elseif ($e->getCode() == 401) {
                 return response()->json('Your credentials are incorrect. Please try again.', $e->getCode());
             }
         }
-
-        // $user = User::where('email', $request->email)->first();
-        //
-        // if($user) {
-        //     // if(Hash::make($request->password) == $user->password) {
-        //     if(Hash::check($request->password, $user->password)) {
-        //         $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        //         $response = ['token' => $token];
-        //         return response($response, 200);
-        //     } else {
-        //         $response = 'Password mismatch';
-        //         return response($response, 422);
-        //     }
-        // } else {
-        //     $response = 'User doesn\'t exist';
-        //     return response($response, 422);
-        // }
     }
 
     public function logout(Request $request)

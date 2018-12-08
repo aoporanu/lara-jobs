@@ -15,10 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('jobs', 'JobsController@index')->name('jobs.index');
-
-Route::post('auth/register', 'AuthController@register');
