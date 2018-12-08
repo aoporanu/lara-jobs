@@ -10,7 +10,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user', function(Request $request) {
         return $request->user();
     });
-    Route::get('/logout', 'AuthController@logout')->name('api.user.logout');
+    Route::get('logout', 'AuthController@logout')->name('api.user.logout');
     // Route::get('jobs', 'JobsController@index')->name('api.jobs.index');
     // Route::get('job/{id}', 'JobsController@show')->name('api.jobs.show');
     // Route::post('job/', 'JobsController@store')->name('api.jobs.store');

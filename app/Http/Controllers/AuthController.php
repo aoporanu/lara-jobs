@@ -3,32 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\BadResponseException;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        die('xxx');
-        $http = new Client;
+        $http = new \GuzzleHttp\Client;
         // so no posting with login credentials to the login method, or
         // here be dragons and we'll just get a timeout :)
         try {
-            $response = $http->post('http://127.0.0.1:8000/oauth/token', [
+            $response = $http->request('POST', config('services.passport.login_endpoint'), [
                 'form_params' => [
                     'grant_type'    => 'password',
-                    'client_id'     => 2,
-                    'client_secret' => 'ZfGuC6SiauJvP8cshdsXRxUfykoS6ODZtx2aW14Z',
+                    'client_id'     => config('services.passport.client_id'),
+                    'client_secret' => config('services.passport.client_secret'),
+                    'scope'         => '',
                     'username'      => $request->username,
                     'password'      => $request->password
                 ]
             ]);
-            var_dump($response);
-            die;
 
             return $response->getBody();
-        } catch (BadResponseException $e) {
+        } catch (\GuzzleHttp\Exception\GuzzleException $e) {
             if($e->getCode() == 400) {
                 return response()->json('Invalid Request. Please enter a username or a password ', $e->getCode());
             }elseif ($e->getCode() == 401) {
