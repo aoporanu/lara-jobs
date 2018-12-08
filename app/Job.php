@@ -44,4 +44,13 @@ class Job extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * [city description]
+     * @return BelongsTo A job belongs to a city
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

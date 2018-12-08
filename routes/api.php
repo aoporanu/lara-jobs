@@ -15,4 +15,5 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('details', 'API\UsersController@details')->name('api.user.details');
     Route::resource('categories', 'CategoriesController');
     Route::resource('companies', 'CompanyController');
+    Route::resource('cities', 'CityController');
 });
