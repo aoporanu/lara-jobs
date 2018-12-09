@@ -32,7 +32,12 @@ Vue.component(
     'login',
     require('./components/Login').default
 );
+Vue.component(
+    'register',
+    require('./components/Register').default
+)
 
 const app = new Vue({
     el: '#app',
+    token: localStorage.getItem('access_token') || null
 });

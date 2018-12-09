@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $http = new \GuzzleHttp\Client;
         // apparently for guzzlehttp to work we must point at localhost?
@@ -30,15 +32,13 @@ class AuthController extends Controller
         }
     }
 
+    public function register(RegisterRequest $request)
+    {
+        // code...
+    }
+
     public function logout(Request $request)
     {
-        $value = $request->bearerToken();
-
-        $id = (new Parser())->parse($value)->getHeader('jti');
-        $token = $request->user()->tokens->find($id);
-        $token->revoke();
-
-        $response = 'You have been succesfully logged-out';
-        return response($response, 200);
+        
     }
 }

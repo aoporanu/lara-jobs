@@ -75,10 +75,11 @@
                 return {
                     jobs: [],
                     categories: [],
+
                     job: {
                         id: '',
                         name: '',
-                        company_id: '',
+                        company_id: this.getCompany(localStorage.getItem('accessToken')) || null,
                         description: '',
                         category: null
                     },
@@ -102,6 +103,15 @@
             },
 
         methods: {
+            getCompany: function (item) {
+                fetch('/api/user', {
+                    body: item
+                })
+                    .then(res => res.json())
+                    .then(res => {
+                        console.info(res);
+                    })
+            },
                 fetchJobs: function (pageUrl) {
                     let vm = this;
                     pageUrl = pageUrl || '/api/jobs';
@@ -135,7 +145,7 @@
                     if(confirm('Are you sure?')) {
                         // so not right...
                         fetch(`api/job/` + id, {
-							headers: myHeaders,
+							headers: this.myHeaders,
                             method: 'delete'
                         })
                         .then(res => res.json)
@@ -151,15 +161,14 @@
                     }
                 },
                 addJob() {
+                    console.info(localStorage.getItem('access_token'));
+                    return;
                     if(this.edit === false) {
                         // add
                         fetch('api/job', {
                             method: 'post',
-							headers: myHeaders,
-                            body: JSON.stringify(this.job),
-                            headers: {
-                                'content-type': 'application/json'
-                            }
+							headers: this.myHeaders,
+                            body: JSON.stringify(this.job)
                         })
                         .then(res => res.json)
                         .then(data => {

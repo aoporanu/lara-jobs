@@ -5,12 +5,14 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}" />
-        <script>window.Laravel = { csrfToken: '{{ csrf_token() }}' , currentUser: '{{ Auth::user() }}'}</script>
+        <script>window.Laravel = { csrfToken: '{{ csrf_token() }}',
+                currentUser: '{{ Auth::user() }}',
+        }</script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.baxandrei.ro/bootstrap/css/bootstrap-notifications.css" />
         <link rel="stylesheet" href="{{ asset('css/notyf.min.css') }}" />
 
-        <title>Laravel</title>
+        <title>{{ env('APP_NAME') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
@@ -20,15 +22,10 @@
     <body>
         <div id="app">
             <navbar></navbar>
-            <login></login>
             <div class="container">
-                {{--<passport-clients></passport-clients>--}}
-                {{--<passport-authorized-clients></passport-authorized-clients>--}}
-                {{--<passport-personal-access-tokens></passport-personal-access-tokens>--}}
-{{-- Get user id --}}
-{{-- <jobs :user-id={{ Auth::user()->id }}></jobs> --}}
-<jobs></jobs>
-{{-- <userdetails :user-id={{ Auth::user()->id }}></userdetails> --}}
+                <login></login>
+                <register></register>
+                <jobs></jobs>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

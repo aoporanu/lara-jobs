@@ -33,13 +33,13 @@
                     }
                 })
                 .then(res => res.json())
-                .then(console.info(res.data)) // put the session in the cookie
-                .catch(err => console.info(err));
+                    .then(res => {
+                        const token = res.access_token;
+                        localStorage.setItem('access_token', token);
+
+                    })
+                        .catch(err => console.info(err));
             }
         }
     }
 </script>
-
-<style scoped>
-
-</style>
