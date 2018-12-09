@@ -22,7 +22,9 @@ class CategoryResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,
-            'created'   => $this->created_at
+            'link'      => [
+                'jobs'  => route('category.jobs', $this->id)
+            ]
         ];
     }
 }

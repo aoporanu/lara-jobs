@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Http\Resources\CompanyResource;
+use App\Http\Resources\JobResource;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -13,11 +14,15 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Company $company)
     {
-        $companies = Company::paginate(15);
+        if(!$company){
+            $companies = Company::paginate(15);
 
-        return CompanyResource::collection($companies);
+            return CompanyResource::collection($companies);
+        } else {
+            return JobResource::collection($company->jobs);
+        }
     }
 
     /**

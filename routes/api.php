@@ -13,7 +13,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     });
     Route::get('logout', 'AuthController@logout')->name('api.user.logout');
     Route::get('details', 'API\UsersController@details')->name('api.user.details');
-    Route::resource('categories', 'CategoriesController');
     Route::resource('companies', 'CompanyController');
     Route::resource('cities', 'CityController');
 });
+Route::resource('categories', 'CategoriesController');
+Route::get('category/{category}/jobs', 'CategoriesController@index')->name('category.jobs');
+Route::get('companies/{company}/jobs', 'CompanyController@index')->name('company.jobs');
