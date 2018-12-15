@@ -9,6 +9,7 @@ use App\Events\JobDeletedEvent;
 use App\Http\Requests\JobCreateRequest;
 use App\Job;
 use App\Http\Resources\JobResource;
+use Illuminate\Http\Request;
 
 class JobsController extends Controller
 {
@@ -17,12 +18,13 @@ class JobsController extends Controller
     {
         $this->middleware('client');
     }
+
     /**
      * Display a listing of the resource. This function will show all jobs,
      * so we should probably leave it for the frontend page ONLY.
      * YAY!!! \(-_-)/
      *
-     * @return array
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index()
     {
@@ -65,11 +67,13 @@ class JobsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Job  $job
+     * @param  \App\Job $job
+     * @param Request|null $request
      * @return JobResource
      */
-    public function show(Job $job)
+    public function show(Job $job, Request $request=null)
     {
+        dd($request->route());
         return new JobResource($job);
     }
 

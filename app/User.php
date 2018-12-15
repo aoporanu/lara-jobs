@@ -65,4 +65,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Company::class);
     }
+
+    public static function findById($id)
+    {
+        return self::where('id', $id);
+    }
 }

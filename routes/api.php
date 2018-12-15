@@ -19,3 +19,4 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::resource('categories', 'CategoriesController');
 Route::get('category/{category}/jobs', 'CategoriesController@index')->name('category.jobs');
 Route::get('companies/{company}/jobs', 'CompanyController@index')->name('company.jobs');
+Route::get('jobs/{job}/close', 'JobsController@show');

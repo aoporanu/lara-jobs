@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $category_id
  * @property-read \App\Category|null $category
  * @property-read \App\Company $company
+ * @property-read \App\City $city
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Job whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Job whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Job whereCreatedAt($value)
@@ -47,10 +48,20 @@ class Job extends Model
 
     /**
      * [city description]
-     * @return BelongsTo A job belongs to a city
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo A job belongs to a city
      */
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public static function findById($id)
+    {
+        return self::where('id', $id)->first();
+    }
+
+    public function close($job)
+    {
+        self::where('id', $job->id)->update(['closed' => 1]);
     }
 }

@@ -27,7 +27,16 @@ export default {
     },
     methods: {
         register: function() {
-
+            fetch('api/login', {
+                method: 'post',
+                body: JSON.stringify({
+                    username: this.username,
+                    password: this.password,
+                    email: this.email,
+                })
+                    .then(res => res.json())
+                    .catch(err => console.info(err));
+            })
         }
     }
 }

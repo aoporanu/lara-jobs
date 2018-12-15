@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -34,11 +34,15 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request)
     {
-        // code...
+        return User::create([
+            'name'      => $request->name,
+            'email'     => $request->email,
+            'password'  => Hash::make($request->password)
+        ]);
     }
 
     public function logout(Request $request)
     {
-        
+
     }
 }
