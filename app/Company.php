@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Job;
+use App\Inbox;
 
 /**
  * Class Company

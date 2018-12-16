@@ -55,11 +55,21 @@ class Job extends Model
         return $this->belongsTo(City::class);
     }
 
+    /**
+     * [findById description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public static function findById($id)
     {
         return self::where('id', $id)->first();
     }
 
+    /**
+     * [close description]
+     * @param  [type] $job [description]
+     * @return [type]      [description]
+     */
     public function close($job)
     {
         self::where('id', $job->id)->update(['closed' => 1]);

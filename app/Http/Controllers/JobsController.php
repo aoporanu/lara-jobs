@@ -1,19 +1,25 @@
-<?php /** @noinspection PhpParamsInspection */
-
-/** @noinspection PhpUndefinedClassInspection */
-
+<?php
 namespace App\Http\Controllers;
 
 use App\Events\JobCreated;
 use App\Events\JobDeletedEvent;
-use App\Http\Requests\JobCreateRequest;
-use App\Job;
-use App\Http\Resources\JobResource;
-use Illuminate\Http\Request;
 
+use App\Http\Requests\JobCreateRequest;
+
+use App\Http\Resources\JobResource;
+
+use App\Job;
+
+use Illuminate\Http\Request;
+/**
+ * [JobsController description]
+ */
 class JobsController extends Controller
 {
 
+    /**
+     * [__construct description]
+     */
     public function __construct()
     {
         $this->middleware('client');
@@ -73,8 +79,17 @@ class JobsController extends Controller
      */
     public function show(Job $job, Request $request=null)
     {
-        dd($request->route());
         return new JobResource($job);
+    }
+
+    /**
+     * Close a job
+     * @param  Job    $job [description]
+     * @return [type]      [description]
+     */
+    public function close(Job $job)
+    {
+        return $user->companies()->close($job->id);
     }
 
     /**

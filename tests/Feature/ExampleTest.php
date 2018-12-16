@@ -1,11 +1,10 @@
 <?php
 
 namespace Tests\Feature;
-
-use Tests\TestCase;
 use App\Job;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
@@ -28,7 +27,7 @@ class ExampleTest extends TestCase
     {
         $job = Job::findById(13);
         $user = User::findById(7);
-        dump($user->companies());
+        $this->assertTrue($user->companies->exists());
         // $user->companies()->jobs()->close(13);
         // $this->assertTrue($user->jobs()->close(13));
     }

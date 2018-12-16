@@ -14,8 +14,8 @@ class JobAddCityField extends Migration
     public function up()
     {
         Schema::table('jobs', function(Blueprint $table) {
-            $table->integer('city_id')->unsigned();
-            $table->foreign('city_id')->references('id')->on('cities');
+            // $table->integer('city_id')->unsigned();
+            // $table->foreign('city_id')->references('id')->on('cities');
         });
     }
 

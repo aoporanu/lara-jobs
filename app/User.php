@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
+use App\Company;
 
 /**
  * Class User
@@ -66,6 +67,11 @@ class User extends Authenticatable
         return $this->hasMany(Company::class);
     }
 
+    /**
+     * [findById description]
+     * @param  [type] $id [description]
+     * @return [type]     [description]
+     */
     public static function findById($id)
     {
         return self::where('id', $id);
